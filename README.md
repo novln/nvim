@@ -4,7 +4,7 @@ Neovim configuration
 
 ## On Archlinux
 
-`pacman -Sy neovim python-neovim python2-neovim`
+`pacman -Sy neovim python-neovim python2-neovim powerline-fonts`
 
 ## Install or update local neovim configuration
 
