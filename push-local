@@ -1,0 +1,49 @@
+#!/bin/bash
+
+NVIM_ROOT_PATH="$XDG_CONFIG_HOME/nvim"
+
+if [[ ! -d "$NVIM_ROOT_PATH" ]]; then
+  mkdir -p $NVIM_ROOT_PATH || exit 1
+fi
+
+if [[ ! -d "$NVIM_ROOT_PATH/autoload" ]]; then
+  mkdir $NVIM_ROOT_PATH/autoload || exit 1
+  cp -R autoload $NVIM_ROOT_PATH/
+fi
+
+diff autoload $NVIM_ROOT_PATH/autoload
+
+if [[ $? -ne 0 ]]; then
+  read -r -p "Do you confirm update? [y/N] " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      cp -R autoload $NVIM_ROOT_PATH/
+    ;;
+    *)
+    ;;
+  esac
+fi
+
+if [[ ! -d "$NVIM_ROOT_PATH/bundle" ]]; then
+  mkdir $NVIM_ROOT_PATH/bundle || exit 1
+fi
+
+if [[ ! -d "$NVIM_ROOT_PATH/spell" ]]; then
+  mkdir $NVIM_ROOT_PATH/spell || exit 1
+  cp -R spell $NVIM_ROOT_PATH/
+fi
+
+diff init.vim $NVIM_ROOT_PATH/init.vim
+
+if [[ $? -ne 0 ]]; then
+  read -r -p "Do you confirm update? [y/N] " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      cp init.vim $NVIM_ROOT_PATH/
+    ;;
+    *)
+    ;;
+  esac
+fi
+
+exit 0

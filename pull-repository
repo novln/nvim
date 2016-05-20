@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -eo pipefail
+
+NVIM_ROOT_PATH="$XDG_CONFIG_HOME/nvim"
+
+cp -Rv $NVIM_ROOT_PATH/autoload .
+cp -Rv $NVIM_ROOT_PATH/spell .
+cp -v $NVIM_ROOT_PATH/init.vim .
