@@ -83,7 +83,7 @@ let mapleader = ' '
 
     Plug 'tpope/vim-fugitive'
 
-    Plug 'vim-airline/vim-airline-themes' | Plug 'vim-airline/vim-airline' 
+    Plug 'vim-airline/vim-airline-themes' | Plug 'vim-airline/vim-airline'
       let g:airline#extensions#disable_rtp_load = 1
       let g:airline_extensions = [ 'branch', 'tabline' ]
       let g:airline_exclude_preview = 1 " remove airline from preview window
