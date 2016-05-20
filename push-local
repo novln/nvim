@@ -11,7 +11,7 @@ if [[ ! -d "$NVIM_ROOT_PATH/autoload" ]]; then
   cp -R autoload $NVIM_ROOT_PATH/
 fi
 
-diff autoload $NVIM_ROOT_PATH/autoload
+diff $NVIM_ROOT_PATH/autoload autoload
 
 if [[ $? -ne 0 ]]; then
   read -r -p "Do you confirm update? [y/N] " response
@@ -33,7 +33,7 @@ if [[ ! -d "$NVIM_ROOT_PATH/spell" ]]; then
   cp -R spell $NVIM_ROOT_PATH/
 fi
 
-diff init.vim $NVIM_ROOT_PATH/init.vim
+diff $NVIM_ROOT_PATH/init.vim init.vim
 
 if [[ $? -ne 0 ]]; then
   read -r -p "Do you confirm update? [y/N] " response
