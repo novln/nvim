@@ -66,7 +66,7 @@ let mapleader = ' '
   call plug#end()
 
 " Leader mappings
-  
+
   " [w]rite the current buffer
   nnoremap <silent> <Leader>w :<C-u>write!<CR>
 
@@ -111,6 +111,3 @@ let mapleader = ' '
   if has('spell')
     " set spell
   endif
-
-  " Avoid configuration files modification by autocmd, shell and write
-  
