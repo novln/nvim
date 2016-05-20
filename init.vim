@@ -12,6 +12,7 @@ if has('autocmd')
 endif
 
 set number
+set fileformats=unix,dos,mac
 
 let mapleader = ' '
 
