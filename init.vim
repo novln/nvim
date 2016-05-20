@@ -25,6 +25,20 @@ let mapleader = ' '
     \ . '? ("'.a:to.'") : ("'.a:from.'"))'
   endfunction
 
+  " Trims trailing whitespace
+  function! s:TrimTrailingWhitespace()
+    let l:pos = getpos(".")
+    %s/\s\+$//e
+    call setpos(".", l:pos)
+  endfunction
+  autocmd BufWritePre * call s:TrimTrailingWhitespace()
+
+  " Echap will close vim-plug buffer
+  autocmd FileType vim-plug call s:on_vimplug_buffer()
+  function! s:on_vimplug_buffer()
+    nnoremap <silent><buffer> <Esc> <C-w>q
+  endfunction
+
 " Plugins
 
   call plug#begin('~/.config/nvim/bundle')
@@ -48,9 +62,40 @@ let mapleader = ' '
       nnoremap <silent> <Leader>m :<C-u>NERDTreeToggle<CR>
 
     Plug 'ctrlpvim/ctrlp.vim'
+      let g:ctrlp_cmd = 'CtrlPMixed' " search anything (in files, buffers and MRU files at the same time.)
+      let g:ctrlp_working_path_mode = 'a' " search for nearest ancestor like .git, .hg, and the directory of the current file
+      let g:ctrlp_match_window_bottom = 1 " show the match window at the top of the screen
+      let g:ctrlp_by_filename = 1
+      let g:ctrlp_max_height = 10 " maximum height of match window
+      let g:ctrlp_switch_buffer = 'et' " jump to a file if it's open already
+      let g:ctrlp_use_caching = 1 " enable caching
+      let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp' " define cache path
+      let g:ctrlp_clear_cache_on_exit = 0 " speed up by not removing clearing cache everytime
+      let g:ctrlp_mruf_max = 250 " number of recently opened files
+      nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
 
     Plug 'vim-scripts/BufOnly.vim', { 'on': [ 'BufOnly' ] }
       nnoremap <silent> <Leader>k :<C-u>BufOnly!<CR>
+
+    Plug 'airblade/vim-gitgutter'
+      let g:gitgutter_map_keys = 0
+      let g:gitgutter_sign_column_always = 1
+
+    Plug 'tpope/vim-fugitive'
+
+    Plug 'vim-airline/vim-airline-themes' | Plug 'vim-airline/vim-airline' 
+      let g:airline#extensions#disable_rtp_load = 1
+      let g:airline_extensions = [ 'branch', 'tabline' ]
+      let g:airline_exclude_preview = 1 " remove airline from preview window
+      let g:airline_section_z = '%p%% %l:%c' " rearrange percentage/col/line section
+      let g:airline_theme = 'badwolf'
+      let g:airline_powerline_fonts = 1
+      let g:bufferline_echo = 0
+      set noshowmode " hide the duplicate mode in bottom status bar
+
+    Plug 'raimondi/delimitmate'
+      let g:delimitMate_expand_cr = 1
+      let g:delimitMate_expand_space = 1
 
     "Plug 'Shougo/deoplete.vim'
 
@@ -62,6 +107,10 @@ let mapleader = ' '
 
     Plug 'elzr/vim-json', { 'for': [ 'json' ] }
 
+    Plug 'tpope/vim-markdown', { 'for': [ 'md' ] }
+      let g:markdown_fenced_languages = ['json', 'bash=sh', 'go']
+      autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
     Plug 'pangloss/vim-javascript', { 'for': [ 'javascript' ] }
       let javascript_enable_domhtmlcss = 1 " enable HTML/CSS highlighting
 
@@ -69,8 +118,8 @@ let mapleader = ' '
 
 " Leader mappings
 
-  " [w]rite the current buffer
-  nnoremap <silent> <Leader>w :<C-u>write!<CR>
+  " [s]ave the current buffer
+  nnoremap <silent> <Leader>s :<C-u>write!<CR>
 
   " [q]uit the current window
   nnoremap <silent> <Leader>q :<C-u>quit!<CR>
@@ -83,7 +132,7 @@ let mapleader = ' '
 
   " Performance
   set lazyredraw " only redraw when needed
-  set ttyfast " we have a fast terminal
+  if exists('&ttyfast') | set ttyfast | endif " if we have a fast terminal
 
   " UI/UX
   set autoread " watch for file changes by other programs
@@ -103,6 +152,15 @@ let mapleader = ' '
   set background=dark
   set colorcolumn=+1 " relative to text-width
   set t_Co=256 " 256 colors
+
+  " Identation
+  set autoindent " auto-indentation
+  set backspace=2 " fix backspace (on some OS/terminals)
+  set expandtab " replace tabs by spaces
+  set shiftwidth=4 " n spaces when using <Tab>
+  set smarttab " insert `shiftwidth` spaces instead of tabs
+  set softtabstop=4 " n spaces when using <Tab>
+  set tabstop=4 " n spaces when using <Tab>
 
   " Mouse
   if has('mouse')
