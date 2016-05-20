@@ -29,6 +29,7 @@ let mapleader = ' '
   call plug#begin('~/.config/nvim/bundle')
 
     Plug 'tomasr/molokai'
+      let g:molokai_original=1
 
     Plug 'editorconfig/editorconfig-vim'
 
