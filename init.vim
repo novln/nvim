@@ -135,11 +135,27 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
 " Leader mappings
 
-  " [s]ave the current buffer
+  " [s] Save the current buffer
   nnoremap <silent> <Leader>s :<C-u>write!<CR>
 
-  " [q]uit the current window
+  " [q] Quit the current window
   nnoremap <silent> <Leader>q :<C-u>quit!<CR>
+
+  " [z] Undo modification
+  nnoremap <silent> <Leader>z  :<C-u>undo<CR>
+
+  " [y] Redo modification
+  nnoremap <silent> <Leader>y :<C-u>redo<CR>
+
+  " [c] Copy selection in clipboard
+  vmap <silent> <Leader>c y
+
+  " [x] Cut selection in clipboard
+  vmap <silent> <Leader>x d
+
+  " [v] Paste content from clipboard
+  nmap <silent> <Leader>v p
+  vmap <silent> <Leader>v p
 
 " Settings
 
@@ -178,6 +194,14 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   set smarttab " insert `shiftwidth` spaces instead of tabs
   set softtabstop=4 " n spaces when using <Tab>
   set tabstop=4 " n spaces when using <Tab>
+
+  " Undo
+  if has('persistent_undo')
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
+    let &undodir = b:cache_directory. '/undo'
+  endif
 
   " Mouse
   if has('mouse')
