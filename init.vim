@@ -117,6 +117,22 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
   call plug#end()
 
+" Inlined plugins
+
+  " highlight search matches (except while being in insert mode)
+  autocmd VimEnter * set hlsearch
+  autocmd InsertEnter * setl nohlsearch
+  autocmd InsertLeave * setl hlsearch
+
+  " highlight cursor line (except while being in insert mode)
+  autocmd VimEnter * set cursorline
+  autocmd BufEnter * set cursorline
+  autocmd InsertEnter * setl nocursorline
+  autocmd InsertLeave * setl cursorline
+
+  " Automatically remove trailing whitespace when saving
+  autocmd BufWritePre * :%s/\s\+$//e
+
 " Leader mappings
 
   " [s]ave the current buffer
