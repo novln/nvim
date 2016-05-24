@@ -201,6 +201,8 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   set smarttab " insert `shiftwidth` spaces instead of tabs
   set softtabstop=4 " n spaces when using <Tab>
   set tabstop=4 " n spaces when using <Tab>
+  set listchars=tab:▒░ " define invisible char
+  set list " print invisible char
 
   " Undo
   if has('persistent_undo')
