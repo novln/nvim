@@ -16,6 +16,8 @@ set fileformats=unix,dos,mac
 
 let mapleader = ' '
 
+let b:cache_directory = $HOME . '/.cache/nvim'
+
 " Helpers
 
   " http://stackoverflow.com/a/3879737/1071486
@@ -25,18 +27,17 @@ let mapleader = ' '
     \ . '? ("'.a:to.'") : ("'.a:from.'"))'
   endfunction
 
-  " Trims trailing whitespace
-  function! s:TrimTrailingWhitespace()
-    let l:pos = getpos(".")
-    %s/\s\+$//e
-    call setpos(".", l:pos)
-  endfunction
-  autocmd BufWritePre * call s:TrimTrailingWhitespace()
-
   " Echap will close vim-plug buffer
   autocmd FileType vim-plug call s:on_vimplug_buffer()
   function! s:on_vimplug_buffer()
     nnoremap <silent><buffer> <Esc> <C-w>q
+  endfunction
+
+  " Open help vertically
+  call SetupCommandAlias('help', 'vertical help')
+  autocmd FileType help call s:on_help_buffer()
+  function! s:on_help_buffer()
+    nmap <silent><buffer> <Esc> <C-w>q
   endfunction
 
 " Plugins
@@ -69,7 +70,7 @@ let mapleader = ' '
       let g:ctrlp_max_height = 10 " maximum height of match window
       let g:ctrlp_switch_buffer = 'et' " jump to a file if it's open already
       let g:ctrlp_use_caching = 1 " enable caching
-      let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp' " define cache path
+      let g:ctrlp_cache_dir = b:cache_directory . '/ctrlp' " define cache path
       let g:ctrlp_clear_cache_on_exit = 0 " speed up by not removing clearing cache everytime
       let g:ctrlp_mruf_max = 250 " number of recently opened files
       nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
