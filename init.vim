@@ -159,6 +159,12 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
 " Settings
 
+  " Cursor
+  set nostartofline " leave my cursor alone
+  set scrolloff=10 " keep at least 10 lines after the cursor when scrolling
+  set sidescrolloff=10 " (same as `scrolloff` about columns during side scrolling)
+  set virtualedit=block " allow the cursor to go in to virtual places
+
   " Encoding
   set encoding=utf-8 " ensure proper encoding
   set fileencodings=utf-8 " ensure proper encoding
@@ -166,19 +172,20 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   " Performance
   set lazyredraw " only redraw when needed
   if exists('&ttyfast') | set ttyfast | endif " if we have a fast terminal
+  set updatetime=750 " reduce vim delay clock
 
   " UI/UX
   set autoread " watch for file changes by other programs
-  set nostartofline " leave my cursor position alone!
-  set scrolloff=8 " keep at least 8 lines after the cursor when scrolling
   "set shell=zsh " shell for :sh
   set textwidth=120 " 120 characters line
+  set showmatch " highlight matching bracket, braces, etc...
 
   " VIM
   set nobackup " disable backup files
   set noswapfile " disable swap files
   set secure " protect the configuration files
   set nofoldenable " disable folding
+  set history=1000 " increase history size
 
   " Theme
   colorscheme molokai
