@@ -125,8 +125,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   autocmd InsertLeave * setl hlsearch
 
   " highlight cursor line (except while being in insert mode)
-  autocmd VimEnter * set cursorline
-  autocmd BufEnter * set cursorline
+  autocmd VimEnter,BufEnter * set cursorline
   autocmd InsertEnter * setl nocursorline
   autocmd InsertLeave * setl cursorline
 
@@ -139,7 +138,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   nnoremap <silent> <Leader>s :<C-u>write!<CR>
 
   " [q] Quit the current window
-  nnoremap <silent> <Leader>q :<C-u>quit!<CR>
+  nnoremap <silent> <Leader>q :<C-u>quit<CR>
 
   " [z] Undo modification
   nnoremap <silent> <Leader>z  :<C-u>undo<CR>
