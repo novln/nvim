@@ -98,46 +98,78 @@ let b:cache_directory = $HOME . '/.cache/nvim'
       let g:delimitMate_expand_cr = 1
       let g:delimitMate_expand_space = 1
 
-    "Plug 'Shougo/deoplete.vim'
-
     "Plug 'docker/docker'
-
-    Plug 'derekwyatt/vim-scala' | Plug 'ensime/ensime-vim', { 'for': [ 'scala', 'sbt' ] }
-      let g:scala_sort_across_groups = 1 " split import in three groups
-      let g:scala_first_party_namespaces = '\(actions\|controllers\|components\|services\|views\|models\)'
-      let g:scala_use_default_keymappings = 0
-      autocmd BufEnter,BufWritePost *.scala :EnTypeCheck
-      autocmd BufWritePost *.scala call FormatScala()
-      function! FormatScala()
-        :SortScalaImports
-        "TODO: Use scalariform
-      endfunction
-      autocmd FileType scala call s:define_scala_leader_mappings()
-      function! s:define_scala_leader_mappings()
-
-        " [o] Organize imports
-        nnoremap <silent> <Leader>o :<C-u>EnOrganizeImports<CR>
-        " [i] Suggest imports
-        nnoremap <silent> <Leader>i :<C-u>EnSuggestImport<CR>
-
-      endfunction
 
     if has('nvim') && has('python3')
 
-      function! DoNvimPlugingUpdate(arg)
+      function! DoNvimPluginUpdate(arg)
         UpdateRemotePlugins
       endfunction
 
-      Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPlugingUpdate') }
-        let g:deoplete#enable_at_startup = 1
-        "let g:deoplete#max_abbr_width = 0
-        "let g:deoplete#max_menu_width = 0
+      function! BuildDeopleteGo(arg)
+        :silent !go get -u github.com/nsf/gocode
+        :silent !make
+      endfunction
+
+      Plug 'derekwyatt/vim-scala' | Plug 'ensime/ensime-vim', { 'for': [ 'scala', 'sbt' ], 'do': function('DoNvimPluginUpdate') }
+        let g:scala_sort_across_groups = 1 " split import in three groups
+        let g:scala_first_party_namespaces = '\(actions\|controllers\|components\|services\|views\|models\)'
+        let g:scala_use_default_keymappings = 0
+        autocmd BufEnter,BufWritePost *.scala :EnTypeCheck
+        autocmd BufWritePost *.scala call FormatScala()
+        function! FormatScala()
+          :SortScalaImports
+          "TODO: Use scalariform
+        endfunction
+        autocmd FileType scala call s:define_scala_leader_mappings()
+        function! s:define_scala_leader_mappings()
+
+          " [o] Organize imports
+          nnoremap <silent> <Leader>o :<C-u>EnOrganizeImports<CR>
+          " [i] Suggest imports
+          nnoremap <silent> <Leader>i :<C-u>EnSuggestImport<CR>
+
+        endfunction
+
+      Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPluginUpdate') }
+        let g:deoplete#enable_at_startup = 1 " enable at startup
+        let g:deoplete#max_abbr_width = 0 " no width limit
+        let g:deoplete#max_menu_width = 0 " no width limit
+        let g:deoplete#enable_smart_case = 1 " enable smart case
         "let g:deoplete#file#enable_buffer_path = 1
-        "set completeopt=menuone,noinsert
+        set completeopt=menuone,noinsert
+        inoremap <silent><expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+
+      Plug 'zchee/deoplete-go', { 'for': [ 'go' ], 'do': function('BuildDeopleteGo') }
+        let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+        let g:deoplete#sources#go#use_cache = 1
+        let g:deoplete#sources#go#json_directory = b:cache_directory . '/deoplete-go'
 
     endif
 
-    Plug 'fatih/vim-go', { 'for': [ 'go' ] }
+    function! BuildVimGo(arg)
+      :silent !go get -u github.com/nsf/gocode
+      :silent !go get -u github.com/alecthomas/gometalinter
+      :silent !go get -u golang.org/x/tools/cmd/goimports
+      :silent !go get -u golang.org/x/tools/cmd/guru
+      :silent !go get -u golang.org/x/tools/cmd/gorename
+      :silent !go get -u github.com/golang/lint/golint
+      :silent !go get -u github.com/kisielk/errcheck
+      :silent !go get -u github.com/jstemmer/gotags
+      :silent !go get -u github.com/klauspost/asmfmt/cmd/asmfmt
+      :silent !go get -u github.com/fatih/motion
+      :silent !go get -u github.com/zmb3/gogetdoc
+      :silent !go get -u github.com/josharian/impl
+    endfunction
+
+    Plug 'fatih/vim-go', { 'for': [ 'go' ], 'do': function('BuildVimGo') }
+      let g:go_highlight_functions = 1
+      let g:go_highlight_methods = 1
+      let g:go_highlight_structs = 1
+      let g:go_highlight_interfaces = 1
+      let g:go_highlight_operators = 1
+      let g:go_highlight_build_constraints = 1
+      let g:go_term_enabled = 1
       autocmd FileType go call s:define_go_leader_mappings()
       function! s:define_go_leader_mappings()
 
@@ -245,6 +277,10 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   set tabstop=4 " n spaces when using <Tab>
   set listchars=tab:▒░ " define invisible char
   set list " print invisible char
+
+  " Search 'n Replace
+  set ignorecase " ignore case when searching
+  set smartcase " smarter search case
 
   " Undo
   if has('persistent_undo')
