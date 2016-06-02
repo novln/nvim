@@ -46,4 +46,21 @@ if [[ $? -ne 0 ]]; then
   esac
 fi
 
+if [[ ! -d "$NVIM_ROOT_PATH/ftplugin" ]]; then
+  mkdir $NVIM_ROOT_PATH/ftplugin || exit 1
+fi
+
+diff $NVIM_ROOT_PATH/ftplugin ftplugin
+
+if [[ $? -ne 0 ]]; then
+  read -r -p "Do you confirm update? [y/N] " response
+  case $response in
+    [yY][eE][sS]|[yY])
+      cp -R ftplugin $NVIM_ROOT_PATH/
+    ;;
+    *)
+    ;;
+  esac
+fi
+
 exit 0

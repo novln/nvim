@@ -100,11 +100,54 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
     "Plug 'Shougo/deoplete.vim'
 
-    "Plug 'ensime/ensime-vim'
-
     "Plug 'docker/docker'
 
-    Plug 'derekwyatt/vim-scala', { 'for': [ 'scala' ] }
+    Plug 'derekwyatt/vim-scala' | Plug 'ensime/ensime-vim', { 'for': [ 'scala', 'sbt' ] }
+      let g:scala_sort_across_groups = 1 " split import in three groups
+      let g:scala_first_party_namespaces = '\(actions\|controllers\|components\|services\|views\|models\)'
+      let g:scala_use_default_keymappings = 0
+      autocmd BufEnter,BufWritePost *.scala :EnTypeCheck
+      autocmd BufWritePost *.scala call FormatScala()
+      function! FormatScala()
+        :SortScalaImports
+        "TODO: Use scalariform
+      endfunction
+      autocmd FileType scala call s:define_scala_leader_mappings()
+      function! s:define_scala_leader_mappings()
+
+        " [o] Organize imports
+        nnoremap <silent> <Leader>o :<C-u>EnOrganizeImports<CR>
+        " [i] Suggest imports
+        nnoremap <silent> <Leader>i :<C-u>EnSuggestImport<CR>
+
+      endfunction
+
+    if has('nvim') && has('python3')
+
+      function! DoNvimPlugingUpdate(arg)
+        UpdateRemotePlugins
+      endfunction
+
+      Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPlugingUpdate') }
+        let g:deoplete#enable_at_startup = 1
+        "let g:deoplete#max_abbr_width = 0
+        "let g:deoplete#max_menu_width = 0
+        "let g:deoplete#file#enable_buffer_path = 1
+        "set completeopt=menuone,noinsert
+
+    endif
+
+    Plug 'fatih/vim-go', { 'for': [ 'go' ] }
+      autocmd FileType go call s:define_go_leader_mappings()
+      function! s:define_go_leader_mappings()
+
+        " [r] Run go application
+        nnoremap <silent> <Leader>r :<C-u>GoRun<CR>
+
+        " [b] Build go application
+        nnoremap <silent> <Leader>b :<C-u>GoBuild<CR>
+
+      endfunction
 
     Plug 'elzr/vim-json', { 'for': [ 'json' ] }
 

@@ -4,6 +4,9 @@ set -eo pipefail
 
 NVIM_ROOT_PATH="$XDG_CONFIG_HOME/nvim"
 
+rm -v $NVIM_ROOT_PATH/autoload/plug.vim.old
+
 cp -Rv $NVIM_ROOT_PATH/autoload .
 cp -Rv $NVIM_ROOT_PATH/spell .
 cp -v $NVIM_ROOT_PATH/init.vim .
+cp -Rv $NVIM_ROOT_PATH/ftplugin .
