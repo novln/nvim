@@ -127,6 +127,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
           " [o] Organize imports
           nnoremap <silent> <Leader>o :<C-u>EnOrganizeImports<CR>
+
           " [i] Suggest imports
           nnoremap <silent> <Leader>i :<C-u>EnSuggestImport<CR>
 
