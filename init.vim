@@ -107,6 +107,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
       endfunction
 
       function! BuildDeopleteGo(arg)
+        :echom "install/update github.com/nsf/gocode"
         :silent !go get -u github.com/nsf/gocode
         :silent !make
       endfunction
@@ -148,17 +149,29 @@ let b:cache_directory = $HOME . '/.cache/nvim'
     endif
 
     function! BuildVimGo(arg)
+      :echom "install/update github.com/nsf/gocode"
       :silent !go get -u github.com/nsf/gocode
+      :echom "install/update github.com/alecthomas/gometalinter"
       :silent !go get -u github.com/alecthomas/gometalinter
+      :echom  "install/update golang.org/x/tools/cmd/goimports"
       :silent !go get -u golang.org/x/tools/cmd/goimports
+      :echom "install/update golang.org/x/tools/cmd/guru"
       :silent !go get -u golang.org/x/tools/cmd/guru
+      :echom "install/update golang.org/x/tools/cmd/gorename"
       :silent !go get -u golang.org/x/tools/cmd/gorename
+      :echom "install/update github.com/golang/lint/golint"
       :silent !go get -u github.com/golang/lint/golint
+      :echom "install/update github.com/kisielk/errcheck"
       :silent !go get -u github.com/kisielk/errcheck
+      :echom "install/update github.com/jstemmer/gotags"
       :silent !go get -u github.com/jstemmer/gotags
+      :echom "install/update github.com/klauspost/asmfmt/cmd/asmfmt"
       :silent !go get -u github.com/klauspost/asmfmt/cmd/asmfmt
+      :echom "install/update github.com/fatih/motion"
       :silent !go get -u github.com/fatih/motion
+      :echom "install/update github.com/zmb3/gogetdoc"
       :silent !go get -u github.com/zmb3/gogetdoc
+      :echom "install/update github.com/josharian/impl"
       :silent !go get -u github.com/josharian/impl
     endfunction
 
