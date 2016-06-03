@@ -207,17 +207,37 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 " Inlined plugins
 
   " highlight search matches (except while being in insert mode)
-  autocmd VimEnter * set hlsearch
+  autocmd VimEnter,InsertLeave * set hlsearch
   autocmd InsertEnter * setl nohlsearch
-  autocmd InsertLeave * setl hlsearch
 
   " highlight cursor line (except while being in insert mode)
-  autocmd VimEnter,BufEnter * set cursorline
+  autocmd VimEnter,InsertLeave,BufEnter * set cursorline
   autocmd InsertEnter * setl nocursorline
-  autocmd InsertLeave * setl cursorline
 
   " Automatically remove trailing whitespace when saving
   autocmd BufWritePre * :%s/\s\+$//e
+
+" Enhanced mappings
+
+  " Better `j` and `k`
+  nnoremap <silent> j gj
+  vnoremap <silent> j gj
+  nnoremap <silent> k gk
+  vnoremap <silent> k gk
+
+  " Copy from the cursor to the end of line using Y (matches D behavior)
+  nnoremap <silent> Y y$
+
+  " Disable annoying mappings
+  noremap  <silent> <C-c>  <Nop>
+  noremap  <silent> <C-w>f <Nop>
+  noremap  <silent> <Del>  <Nop>
+  noremap  <silent> <F1>   <Nop>
+  noremap  <silent> q:     <Nop>
+
+  " reselect visual block after indent
+  vnoremap <silent> < <gv
+  vnoremap <silent> > >gv
 
 " Leader mappings
 
@@ -260,8 +280,12 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   if exists('&ttyfast') | set ttyfast | endif " if we have a fast terminal
   set updatetime=750 " reduce vim delay clock
 
-  " UI/UX
+  " Buffer
   set autoread " watch for file changes by other programs
+  set autowrite " automatically save before :next and :make
+  set hidden " when a tab is closed, do not delete the buffer
+
+  " UI/UX
   "set shell=zsh " shell for :sh
   set textwidth=120 " 120 characters line
   set showmatch " highlight matching bracket, braces, etc...
