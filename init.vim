@@ -98,8 +98,6 @@ let b:cache_directory = $HOME . '/.cache/nvim'
       let g:delimitMate_expand_cr = 1
       let g:delimitMate_expand_space = 1
 
-    "Plug 'docker/docker'
-
     if has('nvim') && has('python3')
 
       function! DoNvimPluginUpdate(arg)
