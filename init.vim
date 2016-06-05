@@ -98,6 +98,14 @@ let b:cache_directory = $HOME . '/.cache/nvim'
       let g:delimitMate_expand_cr = 1
       let g:delimitMate_expand_space = 1
 
+
+  Plug 'Lokaltog/vim-easymotion', { 'on': [ '<Plug>(easymotion-s)' ] }
+      let g:EasyMotion_do_mapping = 0 " disable the default mappings
+      let g:EasyMotion_off_screen_search = 1 " do not search outside of screen
+      let g:EasyMotion_smartcase = 1 " like Vim
+      let g:EasyMotion_use_upper = 1 " recognize both upper and lowercase keys
+
+
     if has('nvim') && has('python3')
 
       function! DoNvimPluginUpdate(arg)
@@ -268,6 +276,11 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   " [v] Paste content from clipboard
   nmap <silent> <Leader>v p
   vmap <silent> <Leader>v p
+
+  " [s] Search in the current buffer
+  nmap <silent> <Leader>s <Plug>(easymotion-s)
+  xmap <silent> <Leader>s <Plug>(easymotion-s)
+  omap <silent> <Leader>s <Plug>(easymotion-s)
 
 " Settings
 
