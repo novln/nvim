@@ -353,5 +353,8 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
   " Spell checking
   if has('spell')
-    " set spell
+
+    " [ss] Switch spell checking
+    nnoremap <silent> <Leader>ss :<C-u>setlocal spell!<CR>
+
   endif
