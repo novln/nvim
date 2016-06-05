@@ -308,6 +308,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   "set shell=zsh " shell for :sh
   set textwidth=120 " 120 characters line
   set showmatch " highlight matching bracket, braces, etc...
+  set fillchars="" " remove split separators
 
   " VIM
   set nobackup " disable backup files
