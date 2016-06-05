@@ -225,6 +225,12 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   nnoremap <silent> k gk
   vnoremap <silent> k gk
 
+  " Also arrows
+  nnoremap <silent> <Down> gj
+  nnoremap <silent> <Up> gk
+  vnoremap <silent> <Down> gj
+  vnoremap <silent> <Up> gk
+
   " Copy from the cursor to the end of line using Y (matches D behavior)
   nnoremap <silent> Y y$
 
