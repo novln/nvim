@@ -105,6 +105,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
       let g:EasyMotion_smartcase = 1 " like Vim
       let g:EasyMotion_use_upper = 1 " recognize both upper and lowercase keys
 
+    Plug 'terryma/vim-multiple-cursors'
 
     if has('nvim') && has('python3')
 
