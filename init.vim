@@ -120,7 +120,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
 
       Plug 'derekwyatt/vim-scala' | Plug 'ensime/ensime-vim', { 'for': [ 'scala', 'sbt' ], 'do': function('DoNvimPluginUpdate') }
         let g:scala_sort_across_groups = 1 " split import in three groups
-        let g:scala_first_party_namespaces = '\(actions\|controllers\|components\|services\|views\|models\)'
+        let g:scala_first_party_namespaces = '\(actions\|controllers\|components\|repositories\|services\|views\|models\)'
         let g:scala_use_default_keymappings = 0
         autocmd BufEnter,BufWritePost *.scala :EnTypeCheck
         autocmd BufWritePost *.scala call FormatScala()
