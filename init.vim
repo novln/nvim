@@ -99,7 +99,7 @@ let b:cache_directory = $HOME . '/.cache/nvim'
       let g:delimitMate_expand_space = 1
 
 
-  Plug 'Lokaltog/vim-easymotion', { 'on': [ '<Plug>(easymotion-s)' ] }
+    Plug 'Lokaltog/vim-easymotion', { 'on': [ '<Plug>(easymotion-s)' ] }
       let g:EasyMotion_do_mapping = 0 " disable the default mappings
       let g:EasyMotion_off_screen_search = 1 " do not search outside of screen
       let g:EasyMotion_smartcase = 1 " like Vim
