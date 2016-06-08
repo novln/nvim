@@ -277,10 +277,10 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   nmap <silent> <Leader>v p
   vmap <silent> <Leader>v p
 
-  " [s] Search in the current buffer
-  nmap <silent> <Leader>s <Plug>(easymotion-s)
-  xmap <silent> <Leader>s <Plug>(easymotion-s)
-  omap <silent> <Leader>s <Plug>(easymotion-s)
+  " [f] Search in the current buffer
+  nmap <silent> <Leader>f <Plug>(easymotion-s)
+  xmap <silent> <Leader>f <Plug>(easymotion-s)
+  omap <silent> <Leader>f <Plug>(easymotion-s)
 
 " Settings
 
