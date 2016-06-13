@@ -250,9 +250,13 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   noremap  <silent> <F1>   <Nop>
   noremap  <silent> q:     <Nop>
 
-  " reselect visual block after indent
+  " Reselect visual block after indent
   vnoremap <silent> < <gv
   vnoremap <silent> > >gv
+
+  " Clean screen and reload file
+  nnoremap <silent> <C-l>      :<C-u>nohl<CR>:redraw<CR>:checktime<CR><C-l>
+  xnoremap <silent> <C-l> <C-c>:<C-u>nohl<CR>:redraw<CR>:checktime<CR><C-l>gv
 
 " Leader mappings
 
