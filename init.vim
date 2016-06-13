@@ -269,14 +269,14 @@ let b:cache_directory = $HOME . '/.cache/nvim'
   nnoremap <silent> <Leader>y :<C-u>redo<CR>
 
   " [c] Copy selection in clipboard
-  vmap <silent> <Leader>c y
+  vmap <silent> <Leader>c "+y
 
   " [x] Cut selection in clipboard
-  vmap <silent> <Leader>x d
+  vmap <silent> <Leader>x "+d
 
   " [v] Paste content from clipboard
-  nmap <silent> <Leader>v p
-  vmap <silent> <Leader>v p
+  nmap <silent> <Leader>v "+p
+  vmap <silent> <Leader>v "+p
 
   " [f] Search in the current buffer
   nmap <silent> <Leader>f <Plug>(easymotion-s)
