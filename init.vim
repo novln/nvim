@@ -124,11 +124,6 @@ let b:cache_directory = $HOME . '/.cache/nvim'
         let g:scala_first_party_namespaces = '\(actions\|controllers\|components\|repositories\|services\|specs\|views\|models\)'
         let g:scala_use_default_keymappings = 0
         autocmd BufEnter,BufWritePost *.scala :EnTypeCheck
-        autocmd BufWritePost *.scala call FormatScala()
-        function! FormatScala()
-          :SortScalaImports
-          "TODO: Use scalariform
-        endfunction
         autocmd FileType scala call s:define_scala_leader_mappings()
         function! s:define_scala_leader_mappings()
 
